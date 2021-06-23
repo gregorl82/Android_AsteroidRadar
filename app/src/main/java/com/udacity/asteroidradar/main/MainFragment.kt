@@ -54,6 +54,76 @@ class MainFragment : Fragment() {
             estimatedDiameter = 23124.12312,
             relativeVelocity = 2312.23123,
             distanceFromEarth = 231.21
+        ),
+        Asteroid(
+            id = 5L,
+            codename = "Asteroid 5",
+            isPotentiallyHazardous = true,
+            absoluteMagnitude = 32.3213123,
+            closeApproachDate = "2021-06-12",
+            estimatedDiameter = 23124.12312,
+            relativeVelocity = 2312.23123,
+            distanceFromEarth = 231.21
+        ),
+        Asteroid(
+            id = 6L,
+            codename = "Asteroid 6",
+            isPotentiallyHazardous = true,
+            absoluteMagnitude = 32.3213123,
+            closeApproachDate = "2021-06-12",
+            estimatedDiameter = 23124.12312,
+            relativeVelocity = 2312.23123,
+            distanceFromEarth = 231.21
+        ),
+        Asteroid(
+            id = 7L,
+            codename = "Asteroid 7",
+            isPotentiallyHazardous = false,
+            absoluteMagnitude = 32.3213123,
+            closeApproachDate = "2021-06-12",
+            estimatedDiameter = 23124.12312,
+            relativeVelocity = 2312.23123,
+            distanceFromEarth = 231.21
+        ),
+        Asteroid(
+            id = 8L,
+            codename = "Asteroid 8",
+            isPotentiallyHazardous = false,
+            absoluteMagnitude = 32.3213123,
+            closeApproachDate = "2021-06-12",
+            estimatedDiameter = 23124.12312,
+            relativeVelocity = 2312.23123,
+            distanceFromEarth = 231.21
+        ),
+        Asteroid(
+            id = 9L,
+            codename = "Asteroid 9",
+            isPotentiallyHazardous = true,
+            absoluteMagnitude = 32.3213123,
+            closeApproachDate = "2021-06-12",
+            estimatedDiameter = 23124.12312,
+            relativeVelocity = 2312.23123,
+            distanceFromEarth = 231.21
+        ),
+        Asteroid(
+            id = 10L,
+            codename = "Asteroid 10",
+            isPotentiallyHazardous = false,
+            absoluteMagnitude = 32.3213123,
+            closeApproachDate = "2021-06-12",
+            estimatedDiameter = 23124.12312,
+            relativeVelocity = 2312.23123,
+            distanceFromEarth = 231.21
+        ),
+        Asteroid(
+            id = 11L,
+            codename = "Asteroid 11",
+            isPotentiallyHazardous = false,
+            absoluteMagnitude = 32.3213123,
+            closeApproachDate = "2021-06-12",
+            estimatedDiameter = 23124.12312,
+            relativeVelocity = 2312.23123,
+            distanceFromEarth = 231.21
         )
     )
 
@@ -69,9 +139,10 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
 
         val adapter = AsteroidAdapter()
+        binding.asteroidRecycler.adapter = adapter
+
         adapter.submitList(asteroids)
 
-        binding.asteroidRecycler.adapter = adapter
         setHasOptionsMenu(true)
 
         return binding.root
