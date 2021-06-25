@@ -8,7 +8,7 @@ import com.udacity.asteroidradar.models.Asteroid
 @Dao
 interface AsteroidDao {
 
-    @Query("SELECT * FROM asteroid_data")
+    @Query("SELECT * FROM asteroid_data WHERE closeApproachDate >= strftime('%Y-%m-%d', 'now') ORDER BY closeApproachDate ASC")
     fun getAsteroids(): LiveData<List<Asteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,29 +21,20 @@ abstract class AsteroidDatabase : RoomDatabase() {
 
     abstract val asteroidDao: AsteroidDao
 
-    companion object {
-
-        @Volatile
-        private var INSTANCE: AsteroidDatabase? = null
-
-        fun getInstance(context: Context): AsteroidDatabase {
-            synchronized(this) {
-                var instance = INSTANCE
-
-                if (instance == null) {
-                    instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        AsteroidDatabase::class.java,
-                        "asteroid_database"
-                    )
-                        .fallbackToDestructiveMigration()
-                        .build()
-
-                    INSTANCE = instance
-                }
-                return instance
-            }
-        }
-    }
-
 }
+
+private lateinit var INSTANCE: AsteroidDatabase
+
+fun getDatabase(context: Context): AsteroidDatabase {
+    synchronized(AsteroidDatabase::class.java) {
+        if (!::INSTANCE.isInitialized) {
+            INSTANCE =
+                Room.databaseBuilder(context, AsteroidDatabase::class.java, "asteroid_database")
+                    .build()
+        }
+        return INSTANCE
+    }
+}
+
+
+

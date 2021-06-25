@@ -5,6 +5,9 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'kotlin-android-extensions'
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
@@ -15,6 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "API_KEY", localProperties['apiKey']
     }
     buildTypes {
         release {
@@ -67,6 +71,7 @@ dependencies {
 
     implementation "androidx.room:room-runtime:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5"
+    implementation "androidx.room:room-ktx:2.2.5"
 
     implementation "android.arch.work:work-runtime-ktx:1.0.1"
 
