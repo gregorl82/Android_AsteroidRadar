@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Picasso
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 
@@ -35,6 +36,19 @@ class MainFragment : Fragment() {
 
         viewModel.asteroids.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
+        })
+
+        viewModel.pictureOfDay.observe(viewLifecycleOwner, Observer {
+
+            if (null != it) {
+                Picasso.with(context).load(it.url)
+                    .into(binding.activityMainImageOfTheDay)
+                binding.activityMainImageOfTheDay.contentDescription = it.title
+            } else {
+                binding.activityMainImageOfTheDay.setImageResource(R.drawable.placeholder_picture_of_day)
+                binding.activityMainImageOfTheDay.contentDescription = "Placeholder"
+            }
+
         })
 
         setHasOptionsMenu(true)

@@ -1,10 +1,11 @@
 package com.udacity.asteroidradar.api.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.udacity.asteroidradar.BuildConfig
 import com.udacity.asteroidradar.api.database.AsteroidDatabase
 import com.udacity.asteroidradar.api.network.NasaApi
-import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
+import com.udacity.asteroidradar.api.network.parseAsteroidsJsonResult
 import com.udacity.asteroidradar.models.Asteroid
 import com.udacity.asteroidradar.models.PictureOfDay
 import com.udacity.asteroidradar.util.Constants
@@ -36,6 +37,15 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
     suspend fun deleteAsteroids() {
         withContext(Dispatchers.IO) {
             database.asteroidDao.deleteOldAsteroids()
+        }
+    }
+
+    suspend fun loadPictureOfDay() = withContext(Dispatchers.IO) {
+        val picture = NasaApi.service.getPictureOfDay(BuildConfig.API_KEY)
+        if (picture.mediaType == "image") {
+            return@withContext picture
+        } else {
+            return@withContext null
         }
     }
 
