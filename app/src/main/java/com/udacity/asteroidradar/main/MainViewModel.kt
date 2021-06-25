@@ -20,15 +20,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-
-    private val _asteroidsList = MutableLiveData<List<Asteroid>>()
-    val asteroidsList: LiveData<List<Asteroid>>
-        get() = _asteroidsList
-
-    private val _pictureOfDay = MutableLiveData<PictureOfDay>()
-    val pictureOfDay: LiveData<PictureOfDay>
-        get() = _pictureOfDay
-
+    val asteroids = repository.asteroids
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

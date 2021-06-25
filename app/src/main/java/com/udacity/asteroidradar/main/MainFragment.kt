@@ -3,8 +3,8 @@ package com.udacity.asteroidradar.main
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.udacity.asteroidradar.models.Asteroid
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 
@@ -20,124 +20,10 @@ class MainFragment : Fragment() {
         ).get(MainViewModel::class.java)
     }
 
-    private val asteroids = arrayListOf(
-        Asteroid(
-            id = 1L,
-            codename = "Asteroid 1",
-            isPotentiallyHazardous = true,
-            absoluteMagnitude = 32.3213123,
-            closeApproachDate = "2021-06-12",
-            estimatedDiameter = 23124.12312,
-            relativeVelocity = 2312.23123,
-            distanceFromEarth = 231.21
-        ),
-        Asteroid(
-            id = 2L,
-            codename = "Asteroid 2",
-            isPotentiallyHazardous = false,
-            absoluteMagnitude = 32.3213123,
-            closeApproachDate = "2021-06-12",
-            estimatedDiameter = 23124.12312,
-            relativeVelocity = 2312.23123,
-            distanceFromEarth = 231.21
-        ),
-        Asteroid(
-            id = 3L,
-            codename = "Asteroid 3",
-            isPotentiallyHazardous = false,
-            absoluteMagnitude = 32.3213123,
-            closeApproachDate = "2021-06-12",
-            estimatedDiameter = 23124.12312,
-            relativeVelocity = 2312.23123,
-            distanceFromEarth = 231.21
-        ),
-        Asteroid(
-            id = 4L,
-            codename = "Asteroid 4",
-            isPotentiallyHazardous = true,
-            absoluteMagnitude = 32.3213123,
-            closeApproachDate = "2021-06-12",
-            estimatedDiameter = 23124.12312,
-            relativeVelocity = 2312.23123,
-            distanceFromEarth = 231.21
-        ),
-        Asteroid(
-            id = 5L,
-            codename = "Asteroid 5",
-            isPotentiallyHazardous = true,
-            absoluteMagnitude = 32.3213123,
-            closeApproachDate = "2021-06-12",
-            estimatedDiameter = 23124.12312,
-            relativeVelocity = 2312.23123,
-            distanceFromEarth = 231.21
-        ),
-        Asteroid(
-            id = 6L,
-            codename = "Asteroid 6",
-            isPotentiallyHazardous = true,
-            absoluteMagnitude = 32.3213123,
-            closeApproachDate = "2021-06-12",
-            estimatedDiameter = 23124.12312,
-            relativeVelocity = 2312.23123,
-            distanceFromEarth = 231.21
-        ),
-        Asteroid(
-            id = 7L,
-            codename = "Asteroid 7",
-            isPotentiallyHazardous = false,
-            absoluteMagnitude = 32.3213123,
-            closeApproachDate = "2021-06-12",
-            estimatedDiameter = 23124.12312,
-            relativeVelocity = 2312.23123,
-            distanceFromEarth = 231.21
-        ),
-        Asteroid(
-            id = 8L,
-            codename = "Asteroid 8",
-            isPotentiallyHazardous = false,
-            absoluteMagnitude = 32.3213123,
-            closeApproachDate = "2021-06-12",
-            estimatedDiameter = 23124.12312,
-            relativeVelocity = 2312.23123,
-            distanceFromEarth = 231.21
-        ),
-        Asteroid(
-            id = 9L,
-            codename = "Asteroid 9",
-            isPotentiallyHazardous = true,
-            absoluteMagnitude = 32.3213123,
-            closeApproachDate = "2021-06-12",
-            estimatedDiameter = 23124.12312,
-            relativeVelocity = 2312.23123,
-            distanceFromEarth = 231.21
-        ),
-        Asteroid(
-            id = 10L,
-            codename = "Asteroid 10",
-            isPotentiallyHazardous = false,
-            absoluteMagnitude = 32.3213123,
-            closeApproachDate = "2021-06-12",
-            estimatedDiameter = 23124.12312,
-            relativeVelocity = 2312.23123,
-            distanceFromEarth = 231.21
-        ),
-        Asteroid(
-            id = 11L,
-            codename = "Asteroid 11",
-            isPotentiallyHazardous = false,
-            absoluteMagnitude = 32.3213123,
-            closeApproachDate = "2021-06-12",
-            estimatedDiameter = 23124.12312,
-            relativeVelocity = 2312.23123,
-            distanceFromEarth = 231.21
-        )
-    )
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
 
         val binding = FragmentMainBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -147,7 +33,9 @@ class MainFragment : Fragment() {
         val adapter = AsteroidAdapter()
         binding.asteroidRecycler.adapter = adapter
 
-        adapter.submitList(asteroids)
+        viewModel.asteroids.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
 
         setHasOptionsMenu(true)
 
