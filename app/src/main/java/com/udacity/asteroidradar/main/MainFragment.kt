@@ -51,7 +51,7 @@ class MainFragment : Fragment() {
                 binding.activityMainImageOfTheDay.contentDescription = it.title
             } else {
                 binding.activityMainImageOfTheDay.setImageResource(R.drawable.placeholder_picture_of_day)
-                binding.activityMainImageOfTheDay.contentDescription = "Placeholder"
+                binding.activityMainImageOfTheDay.contentDescription = "Placeholder image"
             }
 
         })

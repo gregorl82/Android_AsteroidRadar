@@ -1,13 +1,11 @@
-package com.udacity.asteroidradar.api.repository
+package com.udacity.asteroidradar.main
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.udacity.asteroidradar.BuildConfig
 import com.udacity.asteroidradar.api.database.AsteroidDatabase
 import com.udacity.asteroidradar.api.network.NasaApi
 import com.udacity.asteroidradar.api.network.parseAsteroidsJsonResult
 import com.udacity.asteroidradar.models.Asteroid
-import com.udacity.asteroidradar.models.PictureOfDay
 import com.udacity.asteroidradar.util.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

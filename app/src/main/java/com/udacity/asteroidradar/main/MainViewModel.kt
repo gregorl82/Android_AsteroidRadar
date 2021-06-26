@@ -3,7 +3,6 @@ package com.udacity.asteroidradar.main
 import android.app.Application
 import androidx.lifecycle.*
 import com.udacity.asteroidradar.api.database.getDatabase
-import com.udacity.asteroidradar.api.repository.AsteroidRepository
 import com.udacity.asteroidradar.models.Asteroid
 import com.udacity.asteroidradar.models.PictureOfDay
 import kotlinx.coroutines.launch
