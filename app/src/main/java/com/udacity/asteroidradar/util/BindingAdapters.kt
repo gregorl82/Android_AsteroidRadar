@@ -1,9 +1,19 @@
 package com.udacity.asteroidradar.util
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.udacity.asteroidradar.R
+import com.udacity.asteroidradar.models.Asteroid
+
+@BindingAdapter("showOnlyWhenEmpty")
+fun View.showOnlyWhenEmpty(asteroids: List<Asteroid>?) {
+    visibility = when {
+        asteroids == null || asteroids.isEmpty() -> View.VISIBLE
+        else -> View.GONE
+    }
+}
 
 @BindingAdapter("statusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {

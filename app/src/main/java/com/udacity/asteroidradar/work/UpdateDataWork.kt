@@ -19,7 +19,7 @@ class UpdateDataWork(appContext: Context, params: WorkerParameters) :
         val repository = AsteroidRepository(database)
 
         return try {
-            repository.updateAsteroids()
+            repository.fetchAsteroids()
             repository.deleteAsteroids()
             Result.success()
         } catch (e: HttpException) {
