@@ -19,7 +19,7 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
 
     val asteroids: LiveData<List<Asteroid>> = database.asteroidDao.getAsteroids()
 
-    suspend fun updateAsteroids() {
+    suspend fun fetchAsteroids() {
         withContext(Dispatchers.IO) {
 
             val dateFormatter =

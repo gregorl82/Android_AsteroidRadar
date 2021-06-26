@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentDetailBinding
@@ -24,6 +25,8 @@ class DetailFragment : Fragment() {
         binding.helpButton.setOnClickListener {
             displayAstronomicalUnitExplanationDialog()
         }
+
+        (activity as AppCompatActivity).supportActionBar?.title = asteroid.codename
 
         return binding.root
     }
