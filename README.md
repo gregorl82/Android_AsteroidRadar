@@ -1,9 +1,16 @@
-# Purpose of this Folder
+# Asteroid Radar App
 
-This folder should contain the scaffolded project files to get a student started on their project. This repo will be added to the Classroom for students to use, so please do not have any solutions in this folder.
+An application that fetches and displays data of nearby asteroids from the NASA NeoWs API, using Retrofit, Glide, Room and WorkManager.
 
-## Note: Android Kotlin Gradle Update
-Use the updated Gradle version in the `~/gradle/wrapper/gradle-wrapper.properties` file:
-```
-distributionUrl = https\://services.gradle.org/distributions/gradle-6.1.1-all.zip
-```
+The app consists of two views:
+- a home screen with a list of nearby asteroids for the next seven days and an Image of the Day, both loaded from the NASA API.
+- an asteroid detail screen, showing full details of the selected asteroid with an image that indicates whether the asteroid is potentially hazardous.
+
+Use of this app requires a NASA API key (sign up at (https://api.nasa.gov)[https://api.nasa.gov/]). Assign the API key to a property named `apiKey` in the `local.properties` file.
+## Technical features
+- fetches nearby asteroid data from the API for the next seven days using Retrofit
+- caches and stores the data in a local Room database
+- uses WorkManager to schedule background work to fetch and store the latest data for offline use
+- displays the data using RecyclerView
+- navigates to a details view using Jetpack Navigation
+- fetches and displays an Image of the Day on the app homepage with Glide
