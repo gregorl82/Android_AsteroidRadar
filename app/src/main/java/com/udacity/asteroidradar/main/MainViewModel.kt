@@ -7,6 +7,8 @@ import com.udacity.asteroidradar.models.Asteroid
 import com.udacity.asteroidradar.models.PictureOfDay
 import kotlinx.coroutines.launch
 
+enum class PictureOfDayLoadingStatus {LOADING, DONE, ERROR}
+
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = getDatabase(application)

@@ -30,43 +30,18 @@ class MainFragment : Fragment() {
 
         val binding = FragmentMainBinding.inflate(inflater)
         binding.lifecycleOwner = this
-
         binding.viewModel = viewModel
-
-        val adapter = AsteroidAdapter(AsteroidAdapter.OnClickListener {
+        binding.asteroidRecycler.adapter = AsteroidAdapter(AsteroidAdapter.OnClickListener {
             viewModel.displayAsteroidDetails(it)
         })
-
-        binding.asteroidRecycler.adapter = adapter
-
-        viewModel.asteroids.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
-
-        viewModel.pictureOfDay.observe(viewLifecycleOwner, Observer {
-
-            if (null != it) {
-                Picasso.with(context).load(it.url)
-                    .into(binding.activityMainImageOfTheDay)
-                binding.activityMainImageOfTheDay.contentDescription = it.title
-            } else {
-                binding.activityMainImageOfTheDay.setImageResource(R.drawable.placeholder_picture_of_day)
-                binding.activityMainImageOfTheDay.contentDescription = "Placeholder image"
-            }
-
-        })
-
         viewModel.navigateToSelectedAsteroid.observe(viewLifecycleOwner, Observer {
             if (null != it) {
                 this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
                 viewModel.displayAsteroidDetailsComplete()
             }
         })
-
         setHasOptionsMenu(true)
-
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.app_name)
-
         return binding.root
     }
 

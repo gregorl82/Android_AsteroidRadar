@@ -4,8 +4,19 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.udacity.asteroidradar.R
+import com.udacity.asteroidradar.main.AsteroidAdapter
+import com.udacity.asteroidradar.main.PictureOfDayLoadingStatus
 import com.udacity.asteroidradar.models.Asteroid
+import com.udacity.asteroidradar.models.PictureOfDay
+
+@BindingAdapter("listData")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asteroid>?) {
+    val adapter = recyclerView.adapter as AsteroidAdapter
+    adapter.submitList(data)
+}
 
 @BindingAdapter("showOnlyWhenEmpty")
 fun View.showOnlyWhenEmpty(asteroids: List<Asteroid>?) {
@@ -30,6 +41,18 @@ fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
         imageView.setImageResource(R.drawable.asteroid_hazardous)
     } else {
         imageView.setImageResource(R.drawable.asteroid_safe)
+    }
+}
+
+@BindingAdapter("pictureOfDay")
+fun bindPictureOfDay(imageView: ImageView, picture: PictureOfDay?) {
+    if (null != picture) {
+        Picasso.with(imageView.context).load(picture.url)
+            .into(imageView)
+        imageView.contentDescription = picture.title
+    } else {
+        imageView.setImageResource(R.drawable.placeholder_picture_of_day)
+        imageView.contentDescription = "Placeholder image"
     }
 }
 

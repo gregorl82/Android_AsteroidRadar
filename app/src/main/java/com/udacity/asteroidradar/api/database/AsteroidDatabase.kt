@@ -17,13 +17,13 @@ interface AsteroidDao {
     @Query("SELECT * FROM asteroid_data WHERE closeApproachDate >= strftime('%Y-%m-%d', 'now') ORDER BY closeApproachDate ASC")
     fun getAsteroids(): LiveData<List<Asteroid>>
 
+    @Query("SELECT * FROM asteroid_data WHERE closeApproachDate = strftime('%Y-%m-%d', 'now')")
+    fun getAsteroidsForToday(): LiveData<List<Asteroid>>
 }
 
 @Database(entities = [Asteroid::class], version = 1)
 abstract class AsteroidDatabase : RoomDatabase() {
-
     abstract val asteroidDao: AsteroidDao
-
 }
 
 private lateinit var INSTANCE: AsteroidDatabase

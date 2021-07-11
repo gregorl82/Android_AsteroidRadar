@@ -10,6 +10,8 @@ import com.udacity.asteroidradar.util.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import retrofit2.HttpException
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,11 +26,15 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
                 SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
             val startDate = dateFormatter.format(System.currentTimeMillis())
 
-            val asteroidsResult =
-                NasaApi.service.getAsteroidsJson(startDate, BuildConfig.API_KEY)
-            val asteroids = parseAsteroidsJsonResult(JSONObject(asteroidsResult))
+            try {
+                val asteroidsResult =
+                    NasaApi.service.getAsteroidsJson(startDate, BuildConfig.API_KEY)
+                val asteroids = parseAsteroidsJsonResult(JSONObject(asteroidsResult))
+                database.asteroidDao.insertAsteroids(*asteroids.toTypedArray())
+            } catch (e: HttpException) {
+                Timber.e(e.message())
+            }
 
-            database.asteroidDao.insertAsteroids(*asteroids.toTypedArray())
         }
     }
 
@@ -40,11 +46,19 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
 
     suspend fun loadPictureOfDay() = withContext(Dispatchers.IO) {
         val picture = NasaApi.service.getPictureOfDay(BuildConfig.API_KEY)
-        if (picture.mediaType == "image") {
-            return@withContext picture
-        } else {
+
+        try {
+            if (picture.mediaType == "image") {
+                return@withContext picture
+            } else {
+                return@withContext null
+            }
+        } catch (e: HttpException) {
+            Timber.e(e.message())
             return@withContext null
         }
+
+
     }
 
 }
