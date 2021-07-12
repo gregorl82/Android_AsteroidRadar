@@ -1,6 +1,6 @@
 # Asteroid Radar App
 
-An application that fetches and displays data of nearby asteroids from the NASA NeoWs API, using Retrofit, Glide, Room and WorkManager.
+An application that fetches and displays data of nearby asteroids from the NASA NeoWs API, using Retrofit, Picasso, Room and WorkManager.
 
 The app consists of two views:
 - a home screen with a list of nearby asteroids for the next seven days and an Image of the Day, both loaded from the NASA API.
@@ -11,6 +11,6 @@ Use of this app requires a NASA API key (sign up at (https://api.nasa.gov)[https
 - fetches nearby asteroid data from the API for the next seven days using Retrofit
 - caches and stores the data in a local Room database
 - uses WorkManager to schedule background work to fetch and store the latest data for offline use
-- displays the data using RecyclerView
+- displays a list of the data using RecyclerView
 - navigates to a details view using Jetpack Navigation
-- fetches and displays an Image of the Day on the app homepage with Glide
+- fetches and displays an Image of the Day on the app homepage with Picasso

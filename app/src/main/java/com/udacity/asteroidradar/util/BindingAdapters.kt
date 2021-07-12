@@ -30,8 +30,10 @@ fun View.showOnlyWhenEmpty(asteroids: List<Asteroid>?) {
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {
         imageView.setImageResource(R.drawable.ic_status_potentially_hazardous)
+        imageView.contentDescription = R.string.potentially_hazardous_asteroid_image.toString()
     } else {
         imageView.setImageResource(R.drawable.ic_status_normal)
+        imageView.contentDescription = R.string.not_hazardous_asteroid_image.toString()
     }
 }
 
@@ -39,8 +41,10 @@ fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
 fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {
         imageView.setImageResource(R.drawable.asteroid_hazardous)
+        imageView.contentDescription = R.string.potentially_hazardous_asteroid_image.toString()
     } else {
         imageView.setImageResource(R.drawable.asteroid_safe)
+        imageView.contentDescription = R.string.not_hazardous_asteroid_image.toString()
     }
 }
 
@@ -52,7 +56,7 @@ fun bindPictureOfDay(imageView: ImageView, picture: PictureOfDay?) {
         imageView.contentDescription = picture.title
     } else {
         imageView.setImageResource(R.drawable.placeholder_picture_of_day)
-        imageView.contentDescription = "Placeholder image"
+        imageView.contentDescription = R.string.this_is_nasa_s_picture_of_day_showing_nothing_yet.toString()
     }
 }
 
